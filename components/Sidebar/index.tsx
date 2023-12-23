@@ -3,6 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import SidebarLinkGroup from "./SidebarLinkGroup";
 import Image from "next/image";
+import { IoMdPerson } from "react-icons/io";
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -323,6 +324,22 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 </Link>
               </li>
               {/* <!-- Menu Item Settings --> */}
+              {/* <!-- New Menu Item for Professors --> */}
+              <li>
+                <Link
+                  href="/professors"
+                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                    pathname.includes("/professors")
+                      ? "bg-graydark dark:bg-meta-4"
+                      : ""
+                  }`}
+                >
+                  {/* Add your icon or SVG here */}
+                  <IoMdPerson />
+                  <span>Professors</span>
+                </Link>
+              </li>
+              {/* <!-- End of New Menu Item for Professors --> */}
             </ul>
           </div>
         </nav>
