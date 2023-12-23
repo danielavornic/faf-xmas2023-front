@@ -1,0 +1,90 @@
+[
+  {
+    "id": 1,
+    "name": "AI-231",
+    "language": "en",
+    "studentCount": 25,
+    "courses": [
+      {
+        "id": 1,
+        "name": "Mathematics"
+      },
+      {
+        "id": 2,
+        "name": "AMS"
+      },
+      {
+        "id": 3,
+        "name": "Mecanica Teoretica"
+      },
+      {
+        "id": 4,
+        "name": "ALGA"
+      },
+      {
+        "id": 5,
+        "name": "PSA"
+      },
+      {
+        "id": 6,
+        "name": "Discrete Mathematics"
+      },
+      {
+        "id": 7,
+        "name": "Computer Graphics"
+      },
+      {
+        "id": 8,
+        "name": "Object Oriented Programming"
+      },
+      {
+        "id": 9,
+        "name": "Object Oriented Programming"
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "name": "FAF-222",
+    "language": "en",
+    "studentCount": 29,
+    "courses": [
+      {
+        "id": 1,
+        "name": "Computer Graphics"
+      },
+      {
+        "id": 2,
+        "name": "AMS"
+      },
+      {
+        "id": 3,
+        "name": "BDA"
+      },
+      {
+        "id": 4,
+        "name": "ALGA"
+      },
+      {
+        "id": 5,
+        "name": "PSA"
+      },
+      {
+        "id": 6,
+        "name": "Discrete Mathematics"
+      },
+      {
+        "id": 7,
+        "name": "Computer Graphics"
+      },
+      {
+        "id": 8,
+        "name": "Object Oriented Programming"
+      },
+      {
+        "id": 9,
+        "name": "Object Oriented Programming"
+      }
+    ]
+  }
+]

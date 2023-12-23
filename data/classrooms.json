@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "101",
+    "type": "laboratory",
+    "capacity": 25
+  },
+  {
+    "id": 2,
+    "name": "3-3",
+    "type": "lecture",
+    "capacity": 100
+  },
+  {
+    "id": 3,
+    "name": "3-4",
+    "type": "lecture",
+    "capacity": 100
+  },
+  {
+    "id": 4,
+    "name": "118",
+    "type": "laboratory",
+    "capacity": 30
+  }
+]

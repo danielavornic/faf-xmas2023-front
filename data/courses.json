@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "name": "Introduction to Programming",
+    "theoryNrLessons": 30,
+    "practiceNrLessons": 20,
+    "labNrLessons": 10,
+    "year": 1,
+    "semester": 1
+  },
+  {
+    "id": 2,
+    "name": "Data Structures",
+    "theoryNrLessons": 40,
+    "practiceNrLessons": 15,
+    "labNrLessons": 15,
+    "year": 2,
+    "semester": 1
+  },
+  {
+    "id": 3,
+    "name": "Web Development",
+    "theoryNrLessons": 25,
+    "practiceNrLessons": 25,
+    "labNrLessons": 20,
+    "year": 2,
+    "semester": 2
+  }
+]

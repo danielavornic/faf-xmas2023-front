@@ -11,6 +11,9 @@ const TableClassrooms = ({ classroomsData }: TableCoursesProps) => {
         <table className="w-full table-auto">
           <thead>
             <tr className="bg-gray-2 text-left dark:bg-meta-4">
+              <th className="w-[100px] py-4 px-4 font-medium text-black dark:text-white">
+                Actions
+              </th>
               <th className="xl:min-w-[280px] py-4 px-4 font-medium text-black dark:text-white">
                 Name
               </th>
@@ -20,27 +23,11 @@ const TableClassrooms = ({ classroomsData }: TableCoursesProps) => {
               <th className="py-4 px-4 font-medium text-black dark:text-white">
                 Capacity
               </th>
-              <th className="py-4 px-4 font-medium text-black dark:text-white">
-                Actions
-              </th>
             </tr>
           </thead>
           <tbody>
             {classroomsData.map((groupItem, key) => (
               <tr key={key}>
-                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                  <h5 className="font-medium text-black dark:text-white">
-                    {groupItem.name}
-                  </h5>
-                </td>
-                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                  <p className="text-black dark:text-white">{groupItem.type}</p>
-                </td>
-                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                  <p className="text-black dark:text-white">
-                    {groupItem.capacity}
-                  </p>
-                </td>
                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                   <div className="flex items-center space-x-3.5">
                     {/* Edit button */}
@@ -88,6 +75,19 @@ const TableClassrooms = ({ classroomsData }: TableCoursesProps) => {
                     </button>
                     {/* Delete button */}
                   </div>
+                </td>
+                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                  <h5 className="font-medium text-black dark:text-white">
+                    {groupItem.name}
+                  </h5>
+                </td>
+                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                  <p className="text-black dark:text-white">{groupItem.type}</p>
+                </td>
+                <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                  <p className="text-black dark:text-white">
+                    {groupItem.capacity}
+                  </p>
                 </td>
               </tr>
             ))}

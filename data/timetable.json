@@ -1,0 +1,69 @@
+[
+  {
+    "day": 1,
+    "classes": [
+      {
+        "period": 1,
+        "courseName": "AMS",
+        "type": "lecture",
+        "group": "FAF-222",
+        "classroom": "104",
+        "professor": "Elena Cojuhari"
+      },
+      {
+        "period": 3,
+        "courseName": "Fizica",
+        "type": "laboratory",
+        "group": "FAF-222",
+        "classroom": "104",
+        "professor": "Elena Cojuhari"
+      }
+    ]
+  },
+  {
+    "day": 2,
+    "classes": [
+      {
+        "period": 1,
+        "courseName": "Fizica",
+        "type": "laboratory",
+        "group": "FAF-222",
+        "classroom": "104",
+        "professor": "Elena Cojuhari"
+      },
+      {
+        "period": 7,
+        "courseName": "Fizica",
+        "type": "laboratory",
+        "group": "FAF-222",
+        "classroom": "104",
+        "professor": "Elena Cojuhari"
+      }
+    ]
+  },
+  {
+    "day": 3,
+    "classes": []
+  },
+  {
+    "day": 4,
+    "classes": []
+  },
+  {
+    "day": 5,
+    "classes": []
+  },
+  {
+    "day": 6,
+    "classes": [
+      {
+        "period": 2,
+        "courseName": "Discrete Math",
+        "type": "laboratory",
+        "group": "FAF-222",
+        "classroom": "104",
+        "professor": "Elena Cojuhari"
+      }
+    ]
+  }
+]

@@ -1,95 +1,65 @@
 "use client";
 
+import { classrooms, groups, professors, timetable } from "@/api";
 import Calendar from "@/components/Calendar";
-import { Classroom } from "@/types/classroom";
-import { Group } from "@/types/group";
 import { useRouter, useSearchParams } from "next/navigation";
 
-const groupData: Group[] = [
-  {
-    id: 1,
-    name: "AI-231",
-    language: "en",
-    studentCount: 25,
-    courses: [
-      {
-        id: 1,
-        name: "Mathematics",
-      },
-      {
-        id: 2,
-        name: "AMS",
-      },
-      {
-        id: 3,
-        name: "Mecanica Teoretica",
-      },
-      {
-        id: 4,
-        name: "ALGA",
-      },
-      {
-        id: 5,
-        name: "PSA",
-      },
-      {
-        id: 6,
-        name: "Discrete Mathematics",
-      },
-      {
-        id: 7,
-        name: "Computer Graphics",
-      },
-      {
-        id: 8,
-        name: "Object Oriented Programming",
-      },
-      {
-        id: 9,
-        name: "Object Oriented Programming",
-      },
-    ],
-  },
-];
-
-const classroomsData: Classroom[] = [
-  {
-    id: 1,
-    name: "101",
-    type: "laboratory",
-    capacity: 25,
-  },
-  {
-    id: 2,
-    name: "3-3",
-    type: "lecture",
-    capacity: 100,
-  },
-  {
-    id: 3,
-    name: "3-4",
-    type: "lecture",
-    capacity: 100,
-  },
-];
+import { useQuery } from "@tanstack/react-query";
+import { Professor } from "@/types/professor";
+import { useEffect, useState } from "react";
 
 const CalendarPage = () => {
   const { push } = useRouter();
-  const filterType = useSearchParams().get("filterType");
+  const filterType = useSearchParams().get("filterType") || "group";
   const name = useSearchParams().get("name");
+
+  const [listData, setListData] = useState([]);
+
+  const { data: groupData } = useQuery({
+    queryKey: ["groups"],
+    queryFn: () => groups.getList(),
+  });
+
+  const { data: classroomsData } = useQuery({
+    queryKey: ["classrooms"],
+    queryFn: () => classrooms.getList(),
+  });
+
+  const { data: professorsData } = useQuery({
+    queryKey: ["professors"],
+    queryFn: () => professors.getList(),
+  });
+
+  const { data: timetableData } = useQuery({
+    queryKey: ["timetable", filterType, name],
+    queryFn: () => timetable.getByParams({ key: filterType, value: name }),
+  });
+
+  console.log(timetableData);
 
   const handleFilterTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const filterType = e.target.value;
     push(`/timetable?filterType=${filterType}`);
 
     if (filterType === "group") {
-      push(`/timetable?filterType=${filterType}&name=${groupData[0].name}`);
+      push(`/timetable?filterType=${filterType}&name=${groupData?.[0]?.name}`);
+      setListData(groupData);
     } else if (filterType === "classroom") {
       push(
-        `/timetable?filterType=${filterType}&name=${classroomsData[0].name}`
+        `/timetable?filterType=${filterType}&name=${classroomsData?.[0]?.name}`
       );
+      setListData(classroomsData);
+    } else {
+      push(
+        `/timetable?filterType=${filterType}&name=${professorsData?.[0]?.name}`
+      );
+      setListData(professorsData);
     }
   };
+
+  useEffect(() => {
+    setListData(groupData);
+  }, [groupData]);
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.value;
@@ -138,22 +108,16 @@ const CalendarPage = () => {
 
           <div className="relative z-20 bg-transparent dark:bg-form-input">
             <select
-              value={name || groupData[0].name}
+              value={name || groupData?.[0].name}
               name="name"
               onChange={handleFilterTypeChange}
               className="relative z-20 w-full min-w-[300px] appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
             >
-              {filterType === "group"
-                ? groupData.map((group) => (
-                    <option key={group.id} value={group.name}>
-                      {group.name}
-                    </option>
-                  ))
-                : classroomsData.map((classroom) => (
-                    <option key={classroom.id} value={classroom.name}>
-                      {classroom.name}
-                    </option>
-                  ))}
+              {listData?.map((item: any, i: number) => (
+                <option key={i} value={item.name}>
+                  {item.name}
+                </option>
+              ))}
             </select>
             <span className="absolute top-1/2 right-4 z-30 -translate-y-1/2">
               <svg
@@ -199,7 +163,7 @@ const CalendarPage = () => {
         </div>
       </div>
 
-      <Calendar />
+      <Calendar data={timetableData} />
     </>
   );
 };

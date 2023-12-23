@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "Daniela Vornic",
+    "courses": [
+      {
+        "name": "Mathematics"
+      }
+    ],
+    "type": "laboratory",
+    "availability": {
+      "monday": [1, 1, 0, 0, 0, 0, 1],
+      "tuesday": [1, 1, 0, 0, 0, 1, 0],
+      "wednesday": [1, 1, 0, 0, 0, 0, 0],
+      "thursday": [1, 1, 0, 0, 0, 0, 1],
+      "friday": [1, 1, 0, 0, 0, 0, 0],
+      "saturday": [1, 1, 0, 0, 0, 0, 0]
+    }
+  }
+]

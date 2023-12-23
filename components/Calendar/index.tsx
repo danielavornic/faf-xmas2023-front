@@ -1,6 +1,56 @@
+import { TimetableDay, TimetableEntry } from "@/types/timetable";
 import CalendarEntry from "../CalendarEntry";
+import Loader from "../common/Loader";
 
-const Calendar = () => {
+const fillMissingPeriods = (data: TimetableDay[]) => {
+  const MAX_PERIOD = 7; // Assuming a maximum of 7 periods in a day
+
+  return data.map((dayData) => {
+    const periodsFilled: { [key: number]: TimetableEntry | null } = {};
+
+    dayData.classes.forEach((entry) => {
+      periodsFilled[entry.period] = entry;
+    });
+
+    return {
+      ...dayData,
+      classes: Array.from(
+        { length: MAX_PERIOD },
+        (_, i) => periodsFilled[i + 1] || null
+      ),
+    };
+  });
+};
+
+const Calendar = ({ data }: { data: TimetableDay[] }) => {
+  if (!data) return <Loader />;
+
+  let mappedDataWithNulls = fillMissingPeriods(data);
+
+  const renderCalendarEntry = (entry: TimetableEntry | null) => {
+    if (entry === null) {
+      return (
+        <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
+      );
+    } else {
+      return (
+        <td
+          className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"
+          key={entry.period}
+        >
+          <CalendarEntry
+            courseName={entry.courseName}
+            type={entry.type}
+            group={entry.group}
+            classroom={entry.classroom}
+            period={entry.period}
+            professor={entry.professor}
+          />
+        </td>
+      );
+    }
+  };
+
   return (
     <div className="w-full max-w-full rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
       <table className="w-full">
@@ -59,23 +109,9 @@ const Calendar = () => {
                 Monday
               </p>
             </td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32">
-              <CalendarEntry
-                courseName="AMS"
-                type="laboratory"
-                group="FAF-222"
-                classroom="104"
-                period={1}
-                day={1}
-                professor="Elena Cojuhari"
-              />
-            </td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
+            {mappedDataWithNulls
+              ?.find((day) => day.day === 1)
+              ?.classes.map((entry, i) => renderCalendarEntry(entry))}
           </tr>
           {/* <!-- Monday --> */}
           {/* <!-- Tuesday --> */}
@@ -85,13 +121,9 @@ const Calendar = () => {
                 Tuesday
               </p>
             </td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
+            {mappedDataWithNulls
+              ?.find((day) => day.day === 2)
+              ?.classes.map((entry, i) => renderCalendarEntry(entry))}
           </tr>
           {/* <!-- Tuesday --> */}
           {/* <!-- Wednesday --> */}
@@ -101,13 +133,9 @@ const Calendar = () => {
                 Wednesday
               </p>
             </td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
+            {mappedDataWithNulls
+              ?.find((day) => day.day === 3)
+              ?.classes.map((entry, i) => renderCalendarEntry(entry))}
           </tr>
           {/* <!-- Wednesday --> */}
           {/* <!-- Thursday --> */}
@@ -117,23 +145,9 @@ const Calendar = () => {
                 Thursday
               </p>
             </td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32">
-              <CalendarEntry
-                courseName="Computer Graphics"
-                type="lecture"
-                group="FAF-222"
-                classroom="310"
-                period={1}
-                day={1}
-                professor="Viorel Bostan"
-              />
-            </td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
+            {mappedDataWithNulls
+              ?.find((day) => day.day === 4)
+              ?.classes.map((entry, i) => renderCalendarEntry(entry))}
           </tr>
           {/* <!-- Thursday --> */}
           {/* <!-- Friday --> */}
@@ -143,13 +157,9 @@ const Calendar = () => {
                 Friday
               </p>
             </td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
+            {mappedDataWithNulls
+              ?.find((day) => day.day === 5)
+              ?.classes.map((entry, i) => renderCalendarEntry(entry))}
           </tr>
           {/* <!-- Friday --> */}
           {/* <!-- Saturday --> */}
@@ -159,13 +169,9 @@ const Calendar = () => {
                 Saturday
               </p>
             </td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
-            <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
+            {mappedDataWithNulls
+              ?.find((day) => day.day === 6)
+              ?.classes.map((entry, i) => renderCalendarEntry(entry))}
           </tr>
           {/* <!-- Saturday --> */}
         </tbody>
