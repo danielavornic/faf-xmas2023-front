@@ -1,16 +1,15 @@
-import TableOne from "@/components/Tables/TableOne";
+import Calendar from "@/components/Calender";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "TailAdmin | Next.js E-commerce Dashboard Template",
-  description: "This is Home Blog page for TailAdmin Next.js",
+  title: "Timetable",
   // other metadata
 };
 
 export default function Home() {
   return (
     <>
-      <TableOne />
+      <Calendar />
     </>
   );
 }

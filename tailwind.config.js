@@ -56,6 +56,9 @@ module.exports = {
       ...defaultTheme.screens,
     },
     extend: {
+      gridTemplateColumns: {
+        calendar: "0.25fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr",
+      },
       fontSize: {
         "title-xxl": ["44px", "55px"],
         "title-xl": ["36px", "45px"],
