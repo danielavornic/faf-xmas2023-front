@@ -2,18 +2,22 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../store/store";
 import { closeModal } from "../slices/modalSlice";
-import { IoClose } from "react-icons/io5"; // Import close icon from react-icons
+import { IoClose } from "react-icons/io5";
 import CustomSelect from "./CustomSelect";
-import { useQuery } from "@tanstack/react-query";
-import { classrooms, professors } from "@/api";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { classrooms, courses, professors, timetable } from "@/api";
+import { Course } from "@/types/course";
 
 const Modal: React.FC = () => {
   const dispatch = useDispatch();
+  const queryClient = useQueryClient();
   const { isOpen, type, data } = useSelector((state: RootState) => state.modal);
   const { data: professorsData } = useQuery({
     queryKey: ["professors"],
     queryFn: () => professors.getList(),
   });
+  const [isChecked, setIsChecked] = useState(false);
+
   const professorNames = professorsData
     ? professorsData.map((professor: any) => professor.name)
     : [];
@@ -21,6 +25,11 @@ const Modal: React.FC = () => {
   const { data: classRoomData } = useQuery({
     queryKey: ["classrooms"],
     queryFn: () => classrooms.getList(),
+  });
+
+  const { data: coursesData } = useQuery({
+    queryKey: ["courses"],
+    queryFn: () => courses.getList(),
   });
 
   const classroomsNames = classRoomData
@@ -73,11 +82,46 @@ const Modal: React.FC = () => {
     updateDay(index, newValue);
   };
 
+  const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  let handleSave = () => {
+    // Handle save
+
+    if (type === "Professor") {
+      // Handle professor save
+      handleModalClose();
+    }
+
+    if (type === "Group") {
+      // Handle group save
+      handleModalClose();
+    }
+
+    if (type === "TimeTableEntry") {
+      // Handle timetable entry save
+      // mutateCalendarCheck();
+    }
+  };
+
+  const { mutate: mutateCalendarCheck } = useMutation({
+    mutationFn: () =>
+      timetable.checkModifiedEntry(data?.id, { availability: days2 }),
+    onSuccess: () => {
+      setIsChecked(true);
+    },
+  });
+
+  const { mutate: mutateCalendarSave } = useMutation({
+    mutationFn: () =>
+      timetable.updateEntryById(data?.id, { availability: days2 }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["calendarr"] });
+    },
+  });
+
   if (!isOpen) {
     return null;
   }
-
-  const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   const renderContent = () => {
     switch (type) {
@@ -122,7 +166,7 @@ const Modal: React.FC = () => {
                       onClick={() => handleUpdate(i * 6 + j)}
                       className={`${
                         days2[i * 6 + j] == 1 ? "bg-[#00cc00]" : "bg-[#ff0000]"
-                      } w-full h-[25px] justify-center items-center flex text-white cursor-pointer`}
+                      } w-full h-[25px] rounded-[4px] justify-center items-center flex text-white cursor-pointer`}
                     >
                       {day + " " + (i + 1)}
                     </div>
@@ -140,7 +184,7 @@ const Modal: React.FC = () => {
               Professor
               <div className="mb-4.5 mt-2">
                 <div className="relative z-20 bg-transparent dark:bg-form-input focus:outline-none">
-                  <select className="text-[12px] relative z-20 w-full appearance-none rounded border bg-transparent py-3 px-5 outline-none focus:outline-none transition active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary">
+                  <select className="relative z-20 w-full appearance-none rounded border bg-transparent py-3 px-5 outline-none focus:outline-none transition active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary">
                     <option value="">Mihai</option>
                     <option value="">Ion Luo</option>
                     <option value="">Dumitras Dumitru</option>
@@ -171,7 +215,7 @@ const Modal: React.FC = () => {
               Language
               <div className="mb-4.5 mt-2">
                 <div className="relative z-20 bg-transparent dark:bg-form-input focus:outline-none">
-                  <select className="text-[12px] relative z-20 w-full appearance-none rounded border bg-transparent py-3 px-5 outline-none focus:outline-none transition active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary">
+                  <select className="relative z-20 w-full appearance-none rounded border bg-transparent py-3 px-5 outline-none focus:outline-none transition active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary">
                     <option value="">en</option>
                     <option value="">ro</option>
                     <option value="">ru</option>
@@ -203,7 +247,7 @@ const Modal: React.FC = () => {
               Number of students
               <input
                 type="number"
-                className="w-full dark:bg-form-input rounded border px-3 py-3 text-sm leading-tight text-gray-700 shadow focus:outline-none focus:shadow-outline mt-2"
+                className="w-full dark:bg-form-input rounded border px-3 py-3 leading-tight text-gray-700 shadow focus:outline-none focus:shadow-outline mt-2"
                 placeholder="25"
               />
             </label>
@@ -211,17 +255,17 @@ const Modal: React.FC = () => {
               Courses
             </label>
             <div className="grid grid-cols-3 gap-4 pt-2">
-              {subjects.map((subject) => (
+              {coursesData?.map((subject: Course) => (
                 <button
-                  key={subject}
-                  onClick={() => toggleSubject(subject)}
-                  className={`rounded-lg border p-2 ${
-                    selectedSubjects.includes(subject)
+                  key={subject.id}
+                  onClick={() => toggleSubject(subject.name)}
+                  className={`rounded-lg text-sm border py-1 px-2 ${
+                    selectedSubjects.includes(subject.name)
                       ? "bg-gray-700 text-[#666699] font-bold"
                       : "bg-gray-200"
                   }`}
                 >
-                  {subject}
+                  {subject.name}
                 </button>
               ))}
             </div>
@@ -230,7 +274,9 @@ const Modal: React.FC = () => {
       case "TimeTableEntry":
         return (
           <div className="pt-[20px]">
-            <h3 className="font-bold text-2xl text-center">Update entry</h3>
+            <h3 className="font-bold text-2xl text-center">
+              Update calendar entry
+            </h3>
             <label className="block mb-2 text-sm font-bold text-gray-700">
               Course name
               <input
@@ -260,22 +306,26 @@ const Modal: React.FC = () => {
             </label>
             <CustomSelect
               selected={data?.professor}
-              data={professorNames}
+              values={professorNames}
+              labels={professorNames}
               label="Professor"
             />
             <CustomSelect
               selected={data?.classroom}
-              data={classroomsNames}
+              values={classroomsNames}
+              labels={classroomsNames}
               label="Classroom"
             />
             <CustomSelect
               selected={data?.period}
-              data={["1", "2", "3", "4", "5", "6", "7"]}
+              values={["1", "2", "3", "4", "5", "6", "7"]}
+              labels={["1", "2", "3", "4", "5", "6", "7"]}
               label="Period"
             />
             <CustomSelect
               selected={data?.day}
-              data={["1", "2", "3", "4", "5", "6"]}
+              values={["1", "2", "3", "4", "5", "6"]}
+              labels={["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]}
               label="Day"
             />
             <p className="text-center text-[#DC143C]">Some error message</p>
@@ -292,7 +342,7 @@ const Modal: React.FC = () => {
 
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center bg-gray-600 bg-opacity-50 z-[1000] cursor-pointer"
+      className="fixed inset-0 max-w-[1200px] w-full mx-auto flex items-center justify-center bg-gray-600 bg-opacity-50 z-[1000] cursor-pointer"
       onClick={handleModalClose}
     >
       <div
@@ -314,9 +364,19 @@ const Modal: React.FC = () => {
           >
             Cancel
           </button>
+          {type === "TimeTableEntry" && (
+            <button
+              className="flex justify-center rounded bg-secondary py-2 px-6 font-medium text-gray hover:bg-opacity-95"
+              onClick={() => mutateCalendarCheck()}
+            >
+              Check availability
+            </button>
+          )}
           <button
-            className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-95"
+            className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:bg-opacity-95 disabled:cursor-not-allowed disabled:opacity-50"
             type="submit"
+            onClick={handleSave}
+            disabled={type === "TimeTableEntry" && !isChecked}
           >
             Save
           </button>

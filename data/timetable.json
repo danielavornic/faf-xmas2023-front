@@ -1,11 +1,11 @@
 [
   {
     "day": 1,
-    "classes": [
+    "courses": [
       {
         "period": 1,
         "classId": 1,
-        "day": 1,
+        "dayOfWeek": 1,
         "courseName": "AMS",
         "type": "lecture",
         "group": "FAF-222",
@@ -15,7 +15,7 @@
       {
         "period": 3,
         "classId": 2,
-        "day": 1,
+        "dayOfWeek": 1,
         "courseName": "Fizica",
         "type": "laboratory",
         "group": "FAF-222",
@@ -26,10 +26,10 @@
   },
   {
     "day": 2,
-    "classes": [
+    "courses": [
       {
         "classId": 3,
-        "day": 2,
+        "dayOfWeek": 2,
         "period": 1,
         "courseName": "Fizica",
         "type": "laboratory",
@@ -39,6 +39,8 @@
       },
       {
         "period": 7,
+        "classId": 4,
+        "dayOfWeek": 2,
         "courseName": "Fizica",
         "type": "laboratory",
         "group": "FAF-222",
@@ -49,22 +51,22 @@
   },
   {
     "day": 3,
-    "classes": []
+    "courses": []
   },
   {
     "day": 4,
-    "classes": []
+    "courses": []
   },
   {
     "day": 5,
-    "classes": []
+    "courses": []
   },
   {
     "day": 6,
-    "classes": [
+    "courses": [
       {
         "classId": 4,
-        "day": 6,
+        "dayOfWeek": 6,
         "period": 2,
         "courseName": "MD",
         "type": "laboratory",

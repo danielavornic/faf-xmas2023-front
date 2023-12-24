@@ -1,19 +1,19 @@
 import React, { useState, ChangeEvent } from "react";
 
 type Parameters = {
-  data: string[];
+  values: string[];
+  labels: string[];
+  // data: string[];
   selected: string;
   label: string;
 };
 
-const CustomSelect = ({ data, selected, label }: Parameters) => {
+const CustomSelect = ({ values, labels, selected, label }: Parameters) => {
   const [selectedProfessor, setSelectedProfessor] = useState<string>(selected);
 
   const handleProfessorChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedProfessor(e.target.value);
   };
-
-  console.log(data);
 
   return (
     <div>
@@ -24,11 +24,11 @@ const CustomSelect = ({ data, selected, label }: Parameters) => {
             <select
               value={selectedProfessor}
               onChange={handleProfessorChange}
-              className="text-[12px] relative z-20 w-full appearance-none rounded border bg-transparent py-3 px-5 outline-none focus:outline-none transition active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+              className="text-[14px] relative z-20 w-full appearance-none rounded border bg-transparent py-3 px-5 outline-none focus:outline-none transition active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
             >
-              {data.map((professor, index) => (
+              {values.map((professor, index) => (
                 <option key={index} value={professor}>
-                  {professor}
+                  {labels[index]}
                 </option>
               ))}
             </select>

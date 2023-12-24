@@ -9,7 +9,7 @@ interface CalendarEntryProps {
 }
 
 const CalendarEntry = ({
-  entry: { courseName, type, group, day, classroom, professor },
+  entry: { courseName, type, group, dayOfWeek, classroom, professor },
   click,
 }: CalendarEntryProps) => {
   return (
@@ -23,9 +23,9 @@ const CalendarEntry = ({
           <div>
             {
               {
-                lecture: <GiOpenBook />,
-                laboratory: <FaComputerMouse />,
-                seminar: <FaPencilRuler />,
+                Lecture: <GiOpenBook />,
+                Laboratory: <FaComputerMouse />,
+                Seminar: <FaPencilRuler />,
               }[type]
             }
           </div>

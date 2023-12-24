@@ -26,11 +26,14 @@ const days2 = [
 
 const periodsPerDay = 7; // Assuming there are 7 periods per day
 const headers = days.flatMap((day) =>
-  Array.from({ length: periodsPerDay }, (_, i) => `${day}_${i + 1}`)
+  Array.from({ length: periodsPerDay }, (_, i) => `${day} P${i + 1}`)
 );
 
 const tableHeaders = headers.map((header, key) => (
-  <th key={key} className="py-4 px-4 font-medium text-black dark:text-white">
+  <th
+    key={key}
+    className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white"
+  >
     {header}
   </th>
 ));
@@ -141,6 +144,11 @@ const Page = () => {
                     </h5>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                    <p className="text-black dark:text-white">
+                      {profItem.type}
+                    </p>
+                  </td>
+                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     {profItem.courses.map(
                       (subjectItem: Course, key: number) => (
                         <span key={key} className="text-black dark:text-white">
@@ -149,11 +157,6 @@ const Page = () => {
                         </span>
                       )
                     )}
-                  </td>
-                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                    <p className="text-black dark:text-white">
-                      {profItem.type}
-                    </p>
                   </td>
                   {days2.map((day, key) => {
                     return (

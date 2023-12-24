@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 const CalendarPage = () => {
   const { push } = useRouter();
   const filterType = useSearchParams().get("filterType") || "group";
-  const name = useSearchParams().get("name");
+  const name = useSearchParams().get("name") || "AI-231";
 
   const [listData, setListData] = useState([]);
 
@@ -33,8 +33,6 @@ const CalendarPage = () => {
     queryKey: ["timetable", filterType, name],
     queryFn: () => timetable.getByParams({ key: filterType, value: name }),
   });
-
-  console.log(timetableData);
 
   const handleFilterTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const filterType = e.target.value;
@@ -185,6 +183,9 @@ const CalendarPage = () => {
         </div>
       </div>
 
+      <p className="text-right mb-4 text-black dark:text-white">
+        Generated on: 2/24/2023 10:22 AM
+      </p>
       <Calendar data={timetableData} />
     </>
   );

@@ -3,10 +3,7 @@ import { TimetableDay, TimetableEntry } from "@/types/timetable";
 import CalendarEntry from "../CalendarEntry";
 import Loader from "../common/Loader";
 import { openModal } from "@/slices/modalSlice";
-import { RootState } from "@/store/store";
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { professors } from "@/api";
+import { useDispatch } from "react-redux";
 
 const fillMissingPeriods = (data: TimetableDay[]) => {
   const MAX_PERIOD = 7; // Assuming a maximum of 7 periods in a day
@@ -14,13 +11,13 @@ const fillMissingPeriods = (data: TimetableDay[]) => {
   return data.map((dayData) => {
     const periodsFilled: { [key: number]: TimetableEntry | null } = {};
 
-    dayData.classes.forEach((entry) => {
+    dayData.courses.forEach((entry) => {
       periodsFilled[entry.period] = entry;
     });
 
     return {
       ...dayData,
-      classes: Array.from(
+      courses: Array.from(
         { length: MAX_PERIOD },
         (_, i) => periodsFilled[i + 1] || null
       ),
@@ -51,7 +48,8 @@ const Calendar = ({ data }: { data: TimetableDay[] }) => {
               professor: entry.professor,
               classroom: entry.classroom,
               period: entry.period,
-              day: entry.day,
+              day: entry.dayOfWeek,
+              id: entry.classId,
             },
           })
         );
@@ -78,43 +76,43 @@ const Calendar = ({ data }: { data: TimetableDay[] }) => {
           <tr className="grid grid-cols-calendar w-full rounded-t-sm bg-primary text-white">
             <th className="h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5" />
             <th className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
-              <span className="mr-2 inline-flex items-center rounded-md border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground border-accent-foreground px-2.5 py-0.5 text-xs print:hidden">
+              <span className="mr-2 hidden 2xl:inline-flex items-center rounded-md border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground border-accent-foreground px-2.5 py-0.5 text-xs print:hidden">
                 1
               </span>
               8:00 - 9:30
             </th>
             <th className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
-              <span className="mr-2 inline-flex items-center rounded-md border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground border-accent-foreground px-2.5 py-0.5 text-xs print:hidden">
+              <span className="mr-2 hidden 2xl:inline-flex items-center rounded-md border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground border-accent-foreground px-2.5 py-0.5 text-xs print:hidden">
                 2
               </span>{" "}
               9:45 - 11:15
             </th>
             <th className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
-              <span className="mr-2 inline-flex items-center rounded-md border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground border-accent-foreground px-2.5 py-0.5 text-xs print:hidden">
+              <span className="mr-2 hidden 2xl:inline-flex items-center rounded-md border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground border-accent-foreground px-2.5 py-0.5 text-xs print:hidden">
                 3
               </span>
               11:30 - 13:00
             </th>
             <th className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
-              <span className="mr-2 inline-flex items-center rounded-md border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground border-accent-foreground px-2.5 py-0.5 text-xs print:hidden">
+              <span className="mr-2 hidden 2xl:inline-flex items-center rounded-md border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground border-accent-foreground px-2.5 py-0.5 text-xs print:hidden">
                 4
               </span>{" "}
               13:30 - 15:00
             </th>
             <th className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
-              <span className="mr-2 inline-flex items-center rounded-md border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground border-accent-foreground px-2.5 py-0.5 text-xs print:hidden">
+              <span className="mr-2 hidden 2xl:inline-flex items-center rounded-md border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground border-accent-foreground px-2.5 py-0.5 text-xs print:hidden">
                 5
               </span>{" "}
               15:15 - 16:45
             </th>
             <th className="flex h-15 items-center justify-center rounded-tr-sm p-1 text-xs font-semibold sm:text-base xl:p-5">
-              <span className="mr-2 inline-flex items-center rounded-md border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground border-accent-foreground px-2.5 py-0.5 text-xs print:hidden">
+              <span className="mr-2 hidden 2xl:inline-flex items-center rounded-md border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground border-accent-foreground px-2.5 py-0.5 text-xs print:hidden">
                 6
               </span>
               17:00 - 18:30
             </th>
             <th className="flex h-15 items-center justify-center rounded-tr-sm p-1 text-xs font-semibold sm:text-base xl:p-5">
-              <span className="mr-2 inline-flex items-center rounded-md border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground border-accent-foreground px-2.5 py-0.5 text-xs print:hidden">
+              <span className="mr-2 hidden 2xl:inline-flex items-center rounded-md border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground border-accent-foreground px-2.5 py-0.5 text-xs print:hidden">
                 7
               </span>{" "}
               18:45 - 20:15
@@ -131,7 +129,7 @@ const Calendar = ({ data }: { data: TimetableDay[] }) => {
             </td>
             {mappedDataWithNulls
               ?.find((day) => day.day === 1)
-              ?.classes.map((entry, i) => renderCalendarEntry(entry))}
+              ?.courses.map((entry, i) => renderCalendarEntry(entry))}
           </tr>
           {/* <!-- Monday --> */}
           {/* <!-- Tuesday --> */}
@@ -143,7 +141,7 @@ const Calendar = ({ data }: { data: TimetableDay[] }) => {
             </td>
             {mappedDataWithNulls
               ?.find((day) => day.day === 2)
-              ?.classes.map((entry, i) => renderCalendarEntry(entry))}
+              ?.courses.map((entry, i) => renderCalendarEntry(entry))}
           </tr>
           {/* <!-- Tuesday --> */}
           {/* <!-- Wednesday --> */}
@@ -155,7 +153,7 @@ const Calendar = ({ data }: { data: TimetableDay[] }) => {
             </td>
             {mappedDataWithNulls
               ?.find((day) => day.day === 3)
-              ?.classes.map((entry, i) => renderCalendarEntry(entry))}
+              ?.courses.map((entry, i) => renderCalendarEntry(entry))}
           </tr>
           {/* <!-- Wednesday --> */}
           {/* <!-- Thursday --> */}
@@ -167,7 +165,7 @@ const Calendar = ({ data }: { data: TimetableDay[] }) => {
             </td>
             {mappedDataWithNulls
               ?.find((day) => day.day === 4)
-              ?.classes.map((entry, i) => renderCalendarEntry(entry))}
+              ?.courses.map((entry, i) => renderCalendarEntry(entry))}
           </tr>
           {/* <!-- Thursday --> */}
           {/* <!-- Friday --> */}
@@ -179,7 +177,7 @@ const Calendar = ({ data }: { data: TimetableDay[] }) => {
             </td>
             {mappedDataWithNulls
               ?.find((day) => day.day === 5)
-              ?.classes.map((entry, i) => renderCalendarEntry(entry))}
+              ?.courses.map((entry, i) => renderCalendarEntry(entry))}
           </tr>
           {/* <!-- Friday --> */}
           {/* <!-- Saturday --> */}
@@ -191,7 +189,7 @@ const Calendar = ({ data }: { data: TimetableDay[] }) => {
             </td>
             {mappedDataWithNulls
               ?.find((day) => day.day === 6)
-              ?.classes.map((entry, i) => renderCalendarEntry(entry))}
+              ?.courses.map((entry, i) => renderCalendarEntry(entry))}
           </tr>
           {/* <!-- Saturday --> */}
         </tbody>

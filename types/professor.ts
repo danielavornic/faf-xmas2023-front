@@ -3,7 +3,7 @@ import { Course } from "./course";
 export type Professor = {
   id: number;
   name: string;
-  type: "theory" | "seminar" | "laboratory";
+  type: string;
   courses: Partial<Course>[];
   availability: {
     monday: number[];

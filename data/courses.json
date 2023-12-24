@@ -9,6 +9,24 @@
     "semester": 1
   },
   {
+    "id": 56,
+    "name": "Introduction to Programming 2",
+    "theoryNrLessons": 30,
+    "practiceNrLessons": 20,
+    "labNrLessons": 10,
+    "year": 1,
+    "semester": 1
+  },
+  {
+    "id": 23,
+    "name": "DSA",
+    "theoryNrLessons": 30,
+    "practiceNrLessons": 20,
+    "labNrLessons": 10,
+    "year": 1,
+    "semester": 1
+  },
+  {
     "id": 2,
     "name": "Data Structures",
     "theoryNrLessons": 40,
@@ -19,7 +37,25 @@
   },
   {
     "id": 3,
-    "name": "Web Development",
+    "name": "AI",
+    "theoryNrLessons": 25,
+    "practiceNrLessons": 25,
+    "labNrLessons": 20,
+    "year": 2,
+    "semester": 2
+  },
+  {
+    "id": 59,
+    "name": "AMS",
+    "theoryNrLessons": 25,
+    "practiceNrLessons": 25,
+    "labNrLessons": 20,
+    "year": 2,
+    "semester": 2
+  },
+  {
+    "id": 22,
+    "name": "GC",
     "theoryNrLessons": 25,
     "practiceNrLessons": 25,
     "labNrLessons": 20,
