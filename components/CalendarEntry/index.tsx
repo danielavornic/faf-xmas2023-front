@@ -1,30 +1,21 @@
 import { GiOpenBook } from "react-icons/gi";
 import { FaPencilRuler } from "react-icons/fa";
 import { FaComputerMouse } from "react-icons/fa6";
+import { TimetableEntry } from "@/types/timetable";
 
 interface CalendarEntryProps {
-  courseName: string;
-  type: "lecture" | "laboratory" | "seminar";
-  group: string;
-  classroom: string;
-  period: number;
-  professor: string;
+  entry: TimetableEntry;
 }
 
 const CalendarEntry = ({
-  courseName,
-  type,
-  group,
-  classroom,
-  period,
-  professor,
+  entry: { courseName, type, group, id, day, classroom, professor },
 }: CalendarEntryProps) => {
   return (
     <div
       className="group h-16 w-full flex-grow cursor-pointer py-1 md:h-30"
       title={`${courseName} (${type})`}
     >
-      <div className="event invisible absolute left-2 right-2 z-99 mb-1 flex w-[93%] flex-col rounded-sm border-l-[3px] border-primary bg-gray px-3 py-1 text-left opacity-0 group-hover:visible group-hover:opacity-100 dark:group-hover:bg-primary group-hover:bg-primary dark:bg-meta-4 md:visible md:opacity-100">
+      <div className="event invisible absolute left-2 print:top-1 right-2 z-99 mb-1 flex w-[93%] flex-col rounded-sm border-l-[3px] border-primary bg-gray px-3 py-1 text-left opacity-0 group-hover:visible group-hover:opacity-100 dark:group-hover:bg-primary group-hover:bg-primary dark:bg-meta-4 md:visible md:opacity-100">
         <p className="event-name flex items-center font-semibold space-x-2 text-sm text-black dark:text-white group-hover:text-white">
           <div>
             {

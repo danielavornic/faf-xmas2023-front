@@ -7,7 +7,7 @@ export const professors = {
   },
 
   update: async (id: number, payload: any) => {
-    const { data } = await axios.put(`/professors/${id}`, payload);
+    const { data } = await axios.patch(`/professors/${id}`, payload);
     return data;
   },
 };

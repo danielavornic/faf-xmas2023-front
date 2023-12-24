@@ -1,5 +1,7 @@
 export interface TimetableEntry {
+  classId: number;
   period: number;
+  day: number;
   courseName: string;
   type: "lecture" | "laboratory" | "seminar";
   group: string;

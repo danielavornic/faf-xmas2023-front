@@ -4,6 +4,8 @@
     "classes": [
       {
         "period": 1,
+        "classId": 1,
+        "day": 1,
         "courseName": "AMS",
         "type": "lecture",
         "group": "FAF-222",
@@ -12,6 +14,8 @@
       },
       {
         "period": 3,
+        "classId": 2,
+        "day": 1,
         "courseName": "Fizica",
         "type": "laboratory",
         "group": "FAF-222",
@@ -24,6 +28,8 @@
     "day": 2,
     "classes": [
       {
+        "classId": 3,
+        "day": 2,
         "period": 1,
         "courseName": "Fizica",
         "type": "laboratory",
@@ -57,8 +63,10 @@
     "day": 6,
     "classes": [
       {
+        "classId": 4,
+        "day": 6,
         "period": 2,
-        "courseName": "Discrete Math",
+        "courseName": "MD",
         "type": "laboratory",
         "group": "FAF-222",
         "classroom": "104",

@@ -5,7 +5,6 @@ import Calendar from "@/components/Calendar";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { useQuery } from "@tanstack/react-query";
-import { Professor } from "@/types/professor";
 import { useEffect, useState } from "react";
 
 const CalendarPage = () => {
@@ -61,7 +60,7 @@ const CalendarPage = () => {
     setListData(groupData);
   }, [groupData]);
 
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleNameChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const name = e.target.value;
     push(`/timetable?filterType=${filterType}&name=${name}`);
   };
@@ -73,8 +72,8 @@ const CalendarPage = () => {
           Timetable
         </h2>
 
-        <div className="flex space-x-3">
-          <div className="relative z-20 bg-transparent dark:bg-form-input">
+        <div className="flex items-center space-x-3">
+          <div className="print:hidden  relative z-20 bg-transparent dark:bg-form-input">
             <select
               value={filterType || "group"}
               name="filterType"
@@ -110,7 +109,7 @@ const CalendarPage = () => {
             <select
               value={name || groupData?.[0].name}
               name="name"
-              onChange={handleFilterTypeChange}
+              onChange={handleNameChange}
               className="relative z-20 w-full min-w-[300px] appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
             >
               {listData?.map((item: any, i: number) => (
@@ -140,7 +139,30 @@ const CalendarPage = () => {
             </span>
           </div>
 
-          <button className="inline-flex items-center justify-center gap-2.5 bg-primary py-3 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10">
+          <button
+            onClick={() => window.print()}
+            className="print:hidden inline-flex items-center justify-center gap-2.5 border border-primary p-[13.5px] text-center font-medium text-primary hover:bg-opacity-90"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="icon icon-tabler icon-tabler-printer"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2" />
+              <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" />
+              <path d="M7 13m0 2a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2z" />
+            </svg>
+          </button>
+
+          <button className="print:hidden inline-flex items-center justify-center gap-2.5 bg-primary py-3 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10">
             <span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

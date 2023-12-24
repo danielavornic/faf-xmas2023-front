@@ -30,22 +30,15 @@ const Calendar = ({ data }: { data: TimetableDay[] }) => {
   const renderCalendarEntry = (entry: TimetableEntry | null) => {
     if (entry === null) {
       return (
-        <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"></td>
+        <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 md:print:p-0 xl:h-32"></td>
       );
     } else {
       return (
         <td
-          className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"
+          className="ease relative h-24 border border-stroke print:p-0 p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"
           key={entry.period}
         >
-          <CalendarEntry
-            courseName={entry.courseName}
-            type={entry.type}
-            group={entry.group}
-            classroom={entry.classroom}
-            period={entry.period}
-            professor={entry.professor}
-          />
+          <CalendarEntry entry={entry} key={entry.classId} />
         </td>
       );
     }
