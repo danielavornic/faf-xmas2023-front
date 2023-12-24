@@ -34,7 +34,7 @@ const Calendar = ({ data }: { data: TimetableDay[] }) => {
   const renderCalendarEntry = (entry: TimetableEntry | null) => {
     if (entry === null) {
       return (
-        <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 md:print:p-0 xl:h-32"></td>
+        <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 md:print:p-0 xl:h-40"></td>
       );
     } else {
       const handleOpenModal = () => {
@@ -56,7 +56,7 @@ const Calendar = ({ data }: { data: TimetableDay[] }) => {
       };
       return (
         <td
-          className="ease relative h-24 border border-stroke print:p-0 p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"
+          className="ease relative h-24 border border-stroke print:p-0 p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-40"
           key={entry.period}
         >
           <CalendarEntry
@@ -122,7 +122,7 @@ const Calendar = ({ data }: { data: TimetableDay[] }) => {
         <tbody>
           {/* <!-- Monday --> */}
           <tr className="grid grid-cols-calendar w-full">
-            <td className="bg-primary p-2 h-24 md:h-25 md:p-6 xl:h-32 relative text-white">
+            <td className="bg-primary p-2 h-24 md:h-25 md:p-6 xl:h-40 relative text-white">
               <p className="font-semibold transform top-[50px] absolute left-0 right-0 -rotate-90">
                 Monday
               </p>
@@ -134,7 +134,7 @@ const Calendar = ({ data }: { data: TimetableDay[] }) => {
           {/* <!-- Monday --> */}
           {/* <!-- Tuesday --> */}
           <tr className="grid grid-cols-calendar w-full">
-            <td className="bg-primary p-2 h-24 md:h-25 md:p-6 xl:h-32 relative text-white">
+            <td className="bg-primary p-2 h-24 md:h-25 md:p-6 xl:h-40 relative text-white">
               <p className="font-semibold transform top-[50px] absolute left-0 right-0 -rotate-90">
                 Tuesday
               </p>
@@ -146,7 +146,7 @@ const Calendar = ({ data }: { data: TimetableDay[] }) => {
           {/* <!-- Tuesday --> */}
           {/* <!-- Wednesday --> */}
           <tr className="grid grid-cols-calendar w-full">
-            <td className="bg-primary p-2 h-24 md:h-25 md:p-6 xl:h-32 relative text-white">
+            <td className="bg-primary p-2 h-24 md:h-25 md:p-6 xl:h-40 relative text-white">
               <p className="font-semibold transform top-[70px] absolute left-0 right-0 -rotate-90">
                 Wednesday
               </p>
@@ -158,7 +158,7 @@ const Calendar = ({ data }: { data: TimetableDay[] }) => {
           {/* <!-- Wednesday --> */}
           {/* <!-- Thursday --> */}
           <tr className="grid grid-cols-calendar w-full">
-            <td className="bg-primary p-2 h-24 md:h-25 md:p-6 xl:h-32 relative text-white">
+            <td className="bg-primary p-2 h-24 md:h-25 md:p-6 xl:h-40 relative text-white">
               <p className="font-semibold transform top-[65px] absolute left-0 right-0 -rotate-90">
                 Thursday
               </p>
@@ -170,7 +170,7 @@ const Calendar = ({ data }: { data: TimetableDay[] }) => {
           {/* <!-- Thursday --> */}
           {/* <!-- Friday --> */}
           <tr className="grid grid-cols-calendar w-full">
-            <td className="bg-primary p-2 h-24 md:h-25 md:p-6 xl:h-32 relative text-white">
+            <td className="bg-primary p-2 h-24 md:h-25 md:p-6 xl:h-40 relative text-white">
               <p className="font-semibold transform top-[50px] absolute left-0 right-0 -rotate-90">
                 Friday
               </p>
@@ -182,7 +182,7 @@ const Calendar = ({ data }: { data: TimetableDay[] }) => {
           {/* <!-- Friday --> */}
           {/* <!-- Saturday --> */}
           <tr className="grid grid-cols-calendar w-full">
-            <td className="bg-primary p-2 h-24 md:h-25 md:p-6 xl:h-32 relative text-white">
+            <td className="bg-primary p-2 h-24 md:h-25 md:p-6 xl:h-40 relative text-white">
               <p className="font-semibold transform top-[50px] absolute left-0 right-0 -rotate-90">
                 Saturday
               </p>

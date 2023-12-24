@@ -23,8 +23,8 @@ const CalendarEntry = ({
           <div>
             {
               {
-                Lecture: <GiOpenBook />,
-                Laboratory: <FaComputerMouse />,
+                Course: <GiOpenBook />,
+                Lab: <FaComputerMouse />,
                 Seminar: <FaPencilRuler />,
               }[type]
             }

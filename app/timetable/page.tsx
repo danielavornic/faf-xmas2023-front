@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 const CalendarPage = () => {
   const { push } = useRouter();
   const filterType = useSearchParams().get("filterType") || "group";
-  const name = useSearchParams().get("name") || "AI-231";
+  const name = useSearchParams().get("name") || "FAF-221";
 
   const [listData, setListData] = useState([]);
 
@@ -39,7 +39,7 @@ const CalendarPage = () => {
     push(`/timetable?filterType=${filterType}`);
 
     if (filterType === "group") {
-      push(`/timetable?filterType=${filterType}&name=${groupData?.[0]?.name}`);
+      push(`/timetable?filterType=${filterType}&name=FAF-221`);
       setListData(groupData);
     } else if (filterType === "classroom") {
       push(
@@ -105,7 +105,7 @@ const CalendarPage = () => {
 
           <div className="relative z-20 bg-transparent dark:bg-form-input">
             <select
-              value={name || groupData?.[0].name}
+              value={name || "FAF-221"}
               name="name"
               onChange={handleNameChange}
               className="relative z-20 w-full min-w-[300px] appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"

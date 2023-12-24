@@ -1,7 +1,7 @@
 export interface TimetableEntry {
   classId: number;
   courseName: string;
-  type: "Lecture" | "Laboratory" | "Seminar";
+  type: "Course" | "Lab" | "Seminar";
   group: string;
 
   professor: string; //

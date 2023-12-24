@@ -255,9 +255,9 @@ const Modal: React.FC = () => {
         return (
           <div className="pt-[20px]">
             <h3 className="font-bold text-2xl text-center">
-              Update calendar entry
+              Update timetable entry
             </h3>
-            <label className="block mb-2 text-sm font-bold text-gray-700">
+            <label className="block mb-4 text-sm font-bold text-gray-700">
               Course name
               <input
                 type="text"
@@ -266,7 +266,7 @@ const Modal: React.FC = () => {
                 value={data?.name}
               />
             </label>
-            <label className="block mb-2 text-sm font-bold text-gray-700">
+            <label className="block mb-4 text-sm font-bold text-gray-700">
               Group
               <input
                 type="text"
@@ -275,7 +275,7 @@ const Modal: React.FC = () => {
                 value={data?.group}
               />
             </label>
-            <label className="block mb-2 text-sm font-bold text-gray-700">
+            <label className="block mb-4 text-sm font-bold text-gray-700">
               Type
               <input
                 type="text"
