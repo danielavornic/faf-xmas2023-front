@@ -35,7 +35,7 @@ const TableCourses = ({ courseData }: TableCoursesProps) => {
             </tr>
           </thead>
           <tbody>
-            {courseData.map((groupItem, key) => (
+            {courseData?.map((groupItem, key) => (
               <tr key={key}>
                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                   <div className="flex items-center space-x-3.5">

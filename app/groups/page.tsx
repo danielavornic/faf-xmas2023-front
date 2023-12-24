@@ -27,6 +27,7 @@ const GroupsPage = () => {
       })
     );
   };
+  
 
   return (
     <>

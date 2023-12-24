@@ -5,14 +5,17 @@ import { TimetableEntry } from "@/types/timetable";
 
 interface CalendarEntryProps {
   entry: TimetableEntry;
+  click: () => void;
 }
 
 const CalendarEntry = ({
-  entry: { courseName, type, group, classId, day, classroom, professor },
+  entry: { courseName, type, group, day, classroom, professor },
+  click,
 }: CalendarEntryProps) => {
   return (
     <div
       className="group h-16 w-full flex-grow cursor-pointer py-1 md:h-30"
+      onClick={click}
       title={`${courseName} (${type})`}
     >
       <div className="event invisible absolute left-2 print:top-1 right-2 z-99 mb-1 flex w-[93%] flex-col rounded-sm border-l-[3px] border-primary bg-gray px-3 py-1 text-left opacity-0 group-hover:visible group-hover:opacity-100 dark:group-hover:bg-primary group-hover:bg-primary dark:bg-meta-4 md:visible md:opacity-100">

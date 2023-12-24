@@ -3,10 +3,29 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../store/store";
 import { closeModal } from "../slices/modalSlice";
 import { IoClose } from "react-icons/io5"; // Import close icon from react-icons
+import CustomSelect from "./CustomSelect";
+import { useQuery } from "@tanstack/react-query";
+import { classrooms, professors } from "@/api";
 
 const Modal: React.FC = () => {
   const dispatch = useDispatch();
   const { isOpen, type, data } = useSelector((state: RootState) => state.modal);
+  const { data: professorsData } = useQuery({
+    queryKey: ["professors"],
+    queryFn: () => professors.getList(),
+  });
+  const professorNames = professorsData
+    ? professorsData.map((professor: any) => professor.name)
+    : [];
+
+  const { data: classRoomData } = useQuery({
+    queryKey: ["classrooms"],
+    queryFn: () => classrooms.getList(),
+  });
+
+  const classroomsNames = classRoomData
+    ? classRoomData.map((classroom: any) => classroom.name)
+    : [];
 
   const subjects = [
     "Mathematics",
@@ -111,17 +130,6 @@ const Modal: React.FC = () => {
                 })}
               </div>
             </label>
-            {/* <div className="flex gap-2">
-              <button className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray mt-4">
-                Edit
-              </button>
-              <button
-                className="flex w-full justify-center rounded bg-[#ccc] p-3 font-medium text-gray mt-4"
-                onClick={handleModalClose}
-              >
-                Cancel
-              </button>
-            </div> */}
           </div>
         );
       case "Group":
@@ -217,17 +225,60 @@ const Modal: React.FC = () => {
                 </button>
               ))}
             </div>
-            {/* <div className="flex gap-2">
-                <button className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray mt-4">
-                  Edit
-                </button>
-                <button
-                  className="flex w-full justify-center rounded bg-[#ccc] p-3 font-medium text-gray mt-4"
-                  onClick={handleModalClose}
-                >
-                  Cancel
-                </button>
-              </div> */}
+          </div>
+        );
+      case "TimeTableEntry":
+        return (
+          <div className="pt-[20px]">
+            <h3 className="font-bold text-2xl text-center">Update entry</h3>
+            <label className="block mb-2 text-sm font-bold text-gray-700">
+              Course name
+              <input
+                type="text"
+                disabled={true}
+                className="w-full dark:bg-form-input rounded border px-3 py-3 text-sm leading-tight text-gray-700 shadow focus:outline-none focus:shadow-outline mt-2"
+                value={data?.name}
+              />
+            </label>
+            <label className="block mb-2 text-sm font-bold text-gray-700">
+              Group
+              <input
+                type="text"
+                disabled={true}
+                className="w-full dark:bg-form-input rounded border px-3 py-3 text-sm leading-tight text-gray-700 shadow focus:outline-none focus:shadow-outline mt-2"
+                value={data?.group}
+              />
+            </label>
+            <label className="block mb-2 text-sm font-bold text-gray-700">
+              Type
+              <input
+                type="text"
+                disabled={true}
+                className="w-full dark:bg-form-input rounded border px-3 py-3 text-sm leading-tight text-gray-700 shadow focus:outline-none focus:shadow-outline mt-2"
+                value={data?.type}
+              />
+            </label>
+            <CustomSelect
+              selected={data?.professor}
+              data={professorNames}
+              label="Professor"
+            />
+            <CustomSelect
+              selected={data?.classroom}
+              data={classroomsNames}
+              label="Classroom"
+            />
+            <CustomSelect
+              selected={data?.period}
+              data={["1", "2", "3", "4", "5", "6", "7"]}
+              label="Period"
+            />
+            <CustomSelect
+              selected={data?.day}
+              data={["1", "2", "3", "4", "5", "6"]}
+              label="Day"
+            />
+            <p className="text-center text-[#DC143C]">Some error message</p>
           </div>
         );
         break;
