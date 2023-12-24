@@ -1,6 +1,12 @@
+"use client";
 import { TimetableDay, TimetableEntry } from "@/types/timetable";
 import CalendarEntry from "../CalendarEntry";
 import Loader from "../common/Loader";
+import { openModal } from "@/slices/modalSlice";
+import { RootState } from "@/store/store";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { professors } from "@/api";
 
 const fillMissingPeriods = (data: TimetableDay[]) => {
   const MAX_PERIOD = 7; // Assuming a maximum of 7 periods in a day
@@ -23,6 +29,7 @@ const fillMissingPeriods = (data: TimetableDay[]) => {
 };
 
 const Calendar = ({ data }: { data: TimetableDay[] }) => {
+  const dispatch = useDispatch();
   if (!data) return <Loader />;
 
   let mappedDataWithNulls = fillMissingPeriods(data);
@@ -33,12 +40,32 @@ const Calendar = ({ data }: { data: TimetableDay[] }) => {
         <td className="ease relative h-24 border border-stroke p-2 dark:border-strokedark md:h-25 md:p-6 md:print:p-0 xl:h-32"></td>
       );
     } else {
+      const handleOpenModal = () => {
+        dispatch(
+          openModal({
+            type: "TimeTableEntry",
+            data: {
+              name: entry.courseName,
+              group: entry.group,
+              type: entry.type,
+              professor: entry.professor,
+              classroom: entry.classroom,
+              period: entry.period,
+              day: entry.day,
+            },
+          })
+        );
+      };
       return (
         <td
           className="ease relative h-24 border border-stroke print:p-0 p-2 dark:border-strokedark md:h-25 md:p-6 xl:h-32"
           key={entry.period}
         >
-          <CalendarEntry entry={entry} key={entry.classId} />
+          <CalendarEntry
+            click={handleOpenModal}
+            entry={entry}
+            key={entry.classId}
+          />
         </td>
       );
     }

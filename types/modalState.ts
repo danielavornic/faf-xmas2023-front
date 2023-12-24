@@ -1,4 +1,4 @@
-export type ModalType = 'Professor' | 'Group';
+export type ModalType = 'Professor' | 'Group' | 'TimeTableEntry';
 
 export type ModalState = {
   isOpen: boolean;

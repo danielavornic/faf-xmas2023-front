@@ -29,7 +29,7 @@ const TableGroups = ({ groupData }: TableGroupsProps) => {
             </tr>
           </thead>
           <tbody>
-            {groupData.map((groupItem, key) => (
+            {groupData?.map((groupItem, key) => (
               <tr key={key}>
                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                   <div className="flex items-center space-x-3.5">
