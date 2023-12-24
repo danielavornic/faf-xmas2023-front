@@ -8,7 +8,7 @@ interface CalendarEntryProps {
 }
 
 const CalendarEntry = ({
-  entry: { courseName, type, group, id, day, classroom, professor },
+  entry: { courseName, type, group, classId, day, classroom, professor },
 }: CalendarEntryProps) => {
   return (
     <div

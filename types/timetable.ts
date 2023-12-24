@@ -1,12 +1,13 @@
 export interface TimetableEntry {
   classId: number;
-  period: number;
-  day: number;
   courseName: string;
   type: "lecture" | "laboratory" | "seminar";
   group: string;
+
+  professor: string; //
+  day: number;
+  period: number;
   classroom: string;
-  professor: string;
 }
 
 export interface TimetableDay {

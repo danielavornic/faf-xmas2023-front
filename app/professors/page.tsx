@@ -87,7 +87,7 @@ const Page = () => {
               </tr>
             </thead>
             <tbody>
-              {data.map((profItem: any, key: number) => (
+              {data?.map((profItem: any, key: number) => (
                 <tr key={key}>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <div className="flex items-center space-x-3.5">
