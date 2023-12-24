@@ -137,23 +137,13 @@ const Modal: React.FC = () => {
                 value={data?.name}
               />
             </label>
-            <label className="block mt-4 text-sm font-bold text-gray-700">
-              Courses
-            </label>
-            <div className="grid grid-cols-3 gap-4 pt-2 pb-6">
-              {data?.subjects.map((subject: any) => (
-                <button
-                  key={subject}
-                  onClick={() => toggleSubject(subject)}
-                  className={`rounded-lg border p-2 ${
-                    selectedSubjects.includes(subject)
-                      ? "bg-gray-700 text-[#666699] font-bold"
-                      : "bg-gray-200"
-                  }`}
-                >
-                  {subject}
-                </button>
-              ))}
+            <div className="pt-2">
+              <CustomSelect
+                selected={data?.course}
+                values={coursesData?.map((course: Course) => course.name)}
+                labels={coursesData?.map((course: Course) => course.name)}
+                label="Courses"
+              />
             </div>
             <label className="block text-sm font-bold text-gray-700">
               Availability
@@ -251,23 +241,13 @@ const Modal: React.FC = () => {
                 placeholder="25"
               />
             </label>
-            <label className="block mt-4 text-sm font-bold text-gray-700">
-              Courses
-            </label>
-            <div className="grid grid-cols-3 gap-4 pt-2">
-              {coursesData?.map((subject: Course) => (
-                <button
-                  key={subject.id}
-                  onClick={() => toggleSubject(subject.name)}
-                  className={`rounded-lg text-sm border py-1 px-2 ${
-                    selectedSubjects.includes(subject.name)
-                      ? "bg-gray-700 text-[#666699] font-bold"
-                      : "bg-gray-200"
-                  }`}
-                >
-                  {subject.name}
-                </button>
-              ))}
+            <div className="pt-2">
+              <CustomSelect
+                selected={data?.course}
+                values={coursesData?.map((course: Course) => course.name)}
+                labels={coursesData?.map((course: Course) => course.name)}
+                label="Courses"
+              />
             </div>
           </div>
         );

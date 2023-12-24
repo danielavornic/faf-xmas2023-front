@@ -43,18 +43,18 @@ const Page = () => {
   const dispatch = useDispatch();
 
   const handleOpenModal = (index: number) => {
-    const subjectNames: string[] = data?.[index].courses.map(
-      (course: Partial<Course>) => {
-        return course.name ?? "Unknown";
-      }
-    );
+    // const subjectNames: string[] = data?.[index].courses.map(
+    //   (course: Partial<Course>) => {
+    //     return course.name ?? "Unknown";
+    //   }
+    // );
     dispatch(
       openModal({
         type: "Professor",
         data: {
           name: "Daniela Vornic",
           availability: days2,
-          subjects: subjectNames,
+          subjects: data.courses,
         },
       })
     );
@@ -149,14 +149,7 @@ const Page = () => {
                     </p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                    {profItem.courses.map(
-                      (subjectItem: Course, key: number) => (
-                        <span key={key} className="text-black dark:text-white">
-                          {subjectItem.name}
-                          {key < profItem.courses.length - 1 ? ", " : ""}
-                        </span>
-                      )
-                    )}
+                    {profItem.course}
                   </td>
                   {days2.map((day, key) => {
                     return (

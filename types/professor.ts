@@ -4,7 +4,7 @@ export type Professor = {
   id: number;
   name: string;
   type: string;
-  courses: Partial<Course>[];
+  course: string;
   availability: {
     monday: number[];
     tuesday: number[];

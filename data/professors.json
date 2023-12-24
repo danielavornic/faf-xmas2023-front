@@ -2,11 +2,7 @@
   {
     "id": 1,
     "name": "Daniela Vornic",
-    "courses": [
-      {
-        "name": "Mathematics"
-      }
-    ],
+    "course": "Mathematics",
     "type": "laboratory",
     "availability": {
       "monday": [1, 1, 0, 0, 0, 0, 1],
@@ -20,11 +16,7 @@
   {
     "id": 2,
     "name": "Cornievschi Bogdan",
-    "courses": [
-      {
-        "name": "Mathematics"
-      }
-    ],
+    "course": "Smth",
     "type": "laboratory",
     "availability": {
       "monday": [1, 1, 0, 0, 0, 0, 1],

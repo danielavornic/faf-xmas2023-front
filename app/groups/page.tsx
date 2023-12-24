@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const GroupsPage = () => {
   const { data, status } = useQuery({
-    queryKey: ["classrooms"],
+    queryKey: ["groups"],
     queryFn: groups.getList,
   });
 
@@ -27,7 +27,6 @@ const GroupsPage = () => {
       })
     );
   };
-  
 
   return (
     <>

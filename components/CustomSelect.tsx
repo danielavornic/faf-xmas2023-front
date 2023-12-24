@@ -17,7 +17,7 @@ const CustomSelect = ({ values, labels, selected, label }: Parameters) => {
 
   return (
     <div>
-      <label className="block mb-2 text-sm font-bold text-gray-700">
+      <label className="block w-full mb-2 text-sm font-bold text-gray-700">
         {label}
         <div className="mb-4.5 mt-2">
           <div className="relative z-20 bg-transparent dark:bg-form-input focus:outline-none">
