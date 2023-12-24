@@ -6,11 +6,18 @@ type Parameters = {
   // data: string[];
   selected: string;
   label: string;
+  selectedProfessor: string;
+  setSelectedProfessor: (value: string) => void;
 };
 
-const CustomSelect = ({ values, labels, selected, label }: Parameters) => {
-  const [selectedProfessor, setSelectedProfessor] = useState<string>(selected);
-
+const CustomSelect = ({
+  values,
+  labels,
+  selected,
+  label,
+  selectedProfessor,
+  setSelectedProfessor,
+}: Parameters) => {
   const handleProfessorChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedProfessor(e.target.value);
   };
