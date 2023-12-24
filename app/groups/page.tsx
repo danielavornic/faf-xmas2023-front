@@ -1,12 +1,16 @@
+"use client";
 import { Group } from "@/types/group";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import TableGroups from "@/components/Tables/TableGroups";
+import { useSelector, useDispatch } from "react-redux";
+import { openModal, closeModal } from "../../slices/modalSlice";
+import { RootState } from "../../store/store";
 
-import { Metadata } from "next";
-export const metadata: Metadata = {
-  title: "Groups",
-  // other metadata
-};
+// import { Metadata } from "next";
+// export const metadata: Metadata = {
+//   title: "Groups",
+//   // other metadata
+// };
 
 const groupData: Group[] = [
   {
@@ -56,9 +60,21 @@ const groupData: Group[] = [
 ];
 
 const GroupsPage = () => {
+  const modalState = useSelector((state: RootState) => state.modal);
+  const dispatch = useDispatch();
+  const handleOpenModal = () => {
+    dispatch(
+      openModal({
+        type: "Group",
+        data: {
+          /* Some data */
+        },
+      })
+    );
+  };
   return (
     <>
-      <Breadcrumb pageName="Groups" hasAddButton />
+      <Breadcrumb click={handleOpenModal} pageName="Groups" hasAddButton />
 
       <div className="flex flex-col gap-10">
         <TableGroups groupData={groupData} />

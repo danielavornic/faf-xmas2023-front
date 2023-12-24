@@ -1,10 +1,12 @@
+"use client";
 import Link from "next/link";
 
 interface BreadcrumbProps {
   pageName: string;
   hasAddButton?: boolean;
+  click?: () => void;
 }
-const Breadcrumb = ({ pageName, hasAddButton }: BreadcrumbProps) => {
+const Breadcrumb = ({ pageName, hasAddButton, click }: BreadcrumbProps) => {
   return (
     <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
       <h2 className="text-title-md2 font-semibold text-black dark:text-white">
@@ -13,6 +15,7 @@ const Breadcrumb = ({ pageName, hasAddButton }: BreadcrumbProps) => {
 
       {hasAddButton && (
         <Link
+          onClick={click == null ? () => {} : click}
           href="#"
           className="inline-flex items-center justify-center gap-2.5 bg-primary py-3 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
         >
