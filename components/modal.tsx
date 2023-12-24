@@ -11,11 +11,28 @@ import { Course } from "@/types/course";
 const Modal: React.FC = () => {
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
+  const [editName, setEditName] = useState("");
   const { isOpen, type, data } = useSelector((state: RootState) => state.modal);
+  const [selectedProfessor, setSelectedProfessor] = useState<string>("");
+  const [selectedClassroom, setSelectedClassroom] = useState<string>("");
+  const [selectedPeriod, setSelectedPeriod] = useState<string>("");
+  const [selectedDay, setSelectedDay] = useState<string>("");
+  const [selectedCourse, setSelectedCourse] = useState<string>("");
+  const [selectedCourse2, setSelectedCourse2] = useState<string>("");
+  const [error, setError] = useState<string>("");
   const { data: professorsData } = useQuery({
     queryKey: ["professors"],
     queryFn: () => professors.getList(),
   });
+  useEffect(() => {
+    setEditName(data?.name || "");
+    setSelectedProfessor(data?.professor || "");
+    setSelectedClassroom(data?.classroom || "");
+    setSelectedPeriod(data?.period || "");
+    setSelectedDay(data?.day || "");
+    setSelectedCourse(data?.course || "");
+    setSelectedCourse2(data?.course || "");
+  }, [data]);
   const [isChecked, setIsChecked] = useState(false);
 
   const professorNames = professorsData
@@ -65,6 +82,7 @@ const Modal: React.FC = () => {
 
   const handleModalClose = () => {
     setDays2(data?.availability || defaultAvailability);
+    setEditName("");
     setSelectedSubjects([]);
     dispatch(closeModal());
   };
@@ -133,8 +151,9 @@ const Modal: React.FC = () => {
               Name
               <input
                 type="text"
+                onChange={(e) => setEditName(e.target.value)}
                 className="w-full dark:bg-form-input rounded border px-3 py-3 text-sm leading-tight text-gray-700 shadow focus:outline-none focus:shadow-outline mt-2"
-                value={data?.name}
+                value={editName}
               />
             </label>
             <div className="pt-2">
@@ -143,6 +162,8 @@ const Modal: React.FC = () => {
                 values={coursesData?.map((course: Course) => course.name)}
                 labels={coursesData?.map((course: Course) => course.name)}
                 label="Courses"
+                setSelectedProfessor={setSelectedCourse}
+                selectedProfessor={selectedCourse}
               />
             </div>
             <label className="block text-sm font-bold text-gray-700">
@@ -247,6 +268,8 @@ const Modal: React.FC = () => {
                 values={coursesData?.map((course: Course) => course.name)}
                 labels={coursesData?.map((course: Course) => course.name)}
                 label="Courses"
+                selectedProfessor={selectedCourse2}
+                setSelectedProfessor={setSelectedCourse2}
               />
             </div>
           </div>
@@ -288,12 +311,16 @@ const Modal: React.FC = () => {
               selected={data?.professor}
               values={professorNames}
               labels={professorNames}
+              setSelectedProfessor={setSelectedProfessor}
+              selectedProfessor={selectedProfessor}
               label="Professor"
             />
             <CustomSelect
               selected={data?.classroom}
               values={classroomsNames}
               labels={classroomsNames}
+              setSelectedProfessor={setSelectedClassroom}
+              selectedProfessor={selectedClassroom}
               label="Classroom"
             />
             <CustomSelect
@@ -301,12 +328,16 @@ const Modal: React.FC = () => {
               values={["1", "2", "3", "4", "5", "6", "7"]}
               labels={["1", "2", "3", "4", "5", "6", "7"]}
               label="Period"
+              setSelectedProfessor={setSelectedPeriod}
+              selectedProfessor={selectedPeriod}
             />
             <CustomSelect
               selected={data?.day}
               values={["1", "2", "3", "4", "5", "6"]}
               labels={["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]}
               label="Day"
+              setSelectedProfessor={setSelectedDay}
+              selectedProfessor={selectedDay}
             />
             <p className="text-center text-[#DC143C]">Some error message</p>
           </div>

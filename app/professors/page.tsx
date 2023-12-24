@@ -52,7 +52,7 @@ const Page = () => {
       openModal({
         type: "Professor",
         data: {
-          name: "Daniela Vornic",
+          name: data?.[index].name,
           availability: days2,
           subjects: data.courses,
         },
@@ -96,7 +96,7 @@ const Page = () => {
                     <div className="flex items-center space-x-3.5">
                       <button
                         className="hover:text-primary"
-                        onClick={() => handleOpenModal(0)}
+                        onClick={() => handleOpenModal(key)}
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
